@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from main import services
 from django.core import serializers
-
+from django.http import JsonResponse
 
 def inicio(request):
     productos = Product.objects.all()
@@ -35,10 +35,10 @@ def prod_category(request):
 
 class ProductAPIView(APIView):
     def get(self, request):
-        productos = Product.objects.all()
-        people = serializers.serialize("json", Product.objects.all())
+        productos = Product.objects.values()
+        JsonResponse(list(productos), safe=False)
         print(' productos ', productos)
-        return Response(people)
+        return Response(productos)
 
     def post(self):
         # TODO
