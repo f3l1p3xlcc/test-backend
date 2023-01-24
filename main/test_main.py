@@ -37,7 +37,7 @@ def test_get_average_product_price():
 
 # TODO rendalo: un test un poco más complejo de python a secas
 
-@pytest.mark.skip
+
 @pytest.mark.django_db
 def test_product_list_view(client):
     prod1 = generic_product.make(
@@ -47,6 +47,7 @@ def test_product_list_view(client):
         category=generic_category.make(name="cat1"),
     )
     response = client.get("/main/products/")
+    print(' response : ',response)
     assert response.status_code == 200
     assert response.json() == [
         {
@@ -54,10 +55,7 @@ def test_product_list_view(client):
             "name": "prod1",
             "price": 10,
             "stock": 2,
-            "category": {
-                "id": prod1.category.id,
-                "name": "cat1",
-            }
+            "category_id":1
         }
     ]
 
@@ -97,13 +95,4 @@ def test_lista_productos(client):
     print('response',response)
     assert response.status_code == 200
     assert isinstance(response, HttpResponse)
-
-@pytest.mark.skip
-def test_todo():
-    assert 1 == 1
-
-
-
-
-
 
