@@ -1,6 +1,7 @@
 import pytest
 from model_bakery.recipe import Recipe
 from main import services
+from main import views
 
 generic_product = Recipe(
     "main.Product",
@@ -35,8 +36,6 @@ def test_get_average_product_price():
 
 # TODO rendalo: un test un poco más complejo de python a secas
 
-
-
 @pytest.mark.skip
 @pytest.mark.django_db
 def test_product_list_view(client):
@@ -67,6 +66,35 @@ def test_product_list_view(client):
 
 
 # TODO postulante: test en algo que use todo
+
+@pytest.mark.django_db
+def test_preciopromedio(client):
+    prod1 = generic_product.make(
+        name="prod1",
+        price=10,
+        stock=2,
+        category=generic_category.make(name="cat1"),
+    )
+    response = client.get("/main/preciopromedio/")
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_prod_category(client):
+    response = client.get("/main/prod_category/?categoria=1")
+    assert response.status_code == 200
+
+@pytest.mark.django_db
+def test_lista_productos(client):
+    prod1 = generic_product.make(
+        name="prod1",
+        price=10,
+        stock=2,
+        category=generic_category.make(name="cat1"),
+    )
+    response = client.get("/main/listadoproductos/")
+    assert response.status_code == 200
+
 def test_todo():
     assert 1 == 1
 
