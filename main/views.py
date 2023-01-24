@@ -4,6 +4,8 @@ from .models import Product
 from django.shortcuts import render
 from django.http import HttpResponse
 from main import services
+from django.core import serializers
+
 
 def inicio(request):
     productos = Product.objects.all()
@@ -11,7 +13,9 @@ def inicio(request):
     contexto = {
         'productos':productos
     }
-    return render(request,'index.html',contexto)
+
+    httpresponse = render(request,'index.html',contexto)
+    return httpresponse
 
 def preciopromedio(request):
     return HttpResponse(services.get_average_product_price())
@@ -31,8 +35,10 @@ def prod_category(request):
 
 class ProductAPIView(APIView):
     def get(self, request):
-        # TODO
-        return Response([])
+        productos = Product.objects.all()
+        people = serializers.serialize("json", Product.objects.all())
+        print(' productos ', productos)
+        return Response(people)
 
     def post(self):
         # TODO

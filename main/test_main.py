@@ -2,6 +2,7 @@ import pytest
 from model_bakery.recipe import Recipe
 from main import services
 from main import views
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 
 generic_product = Recipe(
     "main.Product",
@@ -93,8 +94,11 @@ def test_lista_productos(client):
         category=generic_category.make(name="cat1"),
     )
     response = client.get("/main/listadoproductos/")
+    print('response',response)
     assert response.status_code == 200
+    assert isinstance(response, HttpResponse)
 
+@pytest.mark.skip
 def test_todo():
     assert 1 == 1
 

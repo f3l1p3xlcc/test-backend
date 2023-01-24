@@ -1,6 +1,8 @@
 from .models import Product
 from statistics import mean
 
+#def get_inicio():
+
 def get_average_product_price() -> float:
     promedio = 0.0
     productos = Product.objects.all()
