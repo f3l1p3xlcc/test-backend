@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- head definitions go here -->
+    </head>
+    <body>
+    <h1>Template de Productos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    nombre
+                </th>
+                <th>
+                    precio
+                </th>
+                <th>
+                    stock
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{producto.name}}</td>
+                <td>{{producto.price}}</td>
+                <td>{{producto.stock}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </body>
+</html>
